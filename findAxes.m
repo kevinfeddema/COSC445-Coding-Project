@@ -1,11 +1,4 @@
-clc;
-clear; 
-close all;
-clock1 = imread("images/clock1.jpg");
-
-[p12, p6, p9, p3] = findNumberAxes(clock1);
-
-function [p12, p6, p9, p3] = findNumberAxes(clock1)
+function [p12, p6, p9, p3] = findAxes(clock1)
 
 if(size(size(clock1(3)) > 1))
 clock1 = rgb2gray(clock1);
@@ -35,11 +28,5 @@ plot(p3(1), p3(2), 'r+', 'MarkerSize', 10);
 I12 = clock1(uint8(rect12(2)):uint8(rect12(2)) + uint8(rect12(4)),uint8(rect12(1)):uint8(rect12(1)) + uint8(rect12(3)));
 figure, imshow(I12);
 
-%clock1 = rgb2gray(clock1);
-%figure, imshow(clock1);
-%E = edge(clock1, "Canny");
-%figure, imshow(E);
-
-%[H,T,R] = hough(E);
 end
 
