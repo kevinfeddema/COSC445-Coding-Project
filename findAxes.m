@@ -1,4 +1,4 @@
-function [p12, p6, p9, p3] = findAxes(clock1)
+function [p12, p6, p9, p3, I12, I6, I9, I3] = findAxes(clock1)
 
 if(size(size(clock1(3)) > 1))
 clock1 = rgb2gray(clock1);
@@ -23,10 +23,15 @@ plot(p12(1), p12(2), 'r+', 'MarkerSize', 10);
 plot(p6(1), p6(2), 'r+', 'MarkerSize', 10);
 plot(p9(1), p9(2), 'r+', 'MarkerSize', 10);
 plot(p3(1), p3(2), 'r+', 'MarkerSize', 10);
-
 %I12 = clock1(rect12(1):rect12(3), rect12(2):rect12(4));
-I12 = clock1(uint8(rect12(2)):uint8(rect12(2)) + uint8(rect12(4)),uint8(rect12(1)):uint8(rect12(1)) + uint8(rect12(3)));
-figure, imshow(I12);
+I12 = clock1(uint16(rect12(2)):uint16(rect12(2)) + uint16(rect12(4)),uint16(rect12(1)):(uint16(rect12(1)) + (uint16(rect12(3)))));
+%figure, imshow(I12);
+I6 = clock1(uint16(rect6(2)):uint16(rect6(2)) + uint16(rect6(4)),uint16(rect6(1)):(uint16(rect6(1)) + (uint16(rect6(3)))));
+%figure, imshow(I6);
+I9 = clock1(uint16(rect9(2)):uint16(rect9(2)) + uint16(rect9(4)),uint16(rect9(1)):(uint16(rect9(1)) + (uint16(rect9(3)))));
+%figure, imshow(I9);
+I3 = clock1(uint16(rect3(2)):uint16(rect3(2)) + uint16(rect3(4)),uint16(rect3(1)):(uint16(rect3(1)) + (uint16(rect3(3)))));
+%figure, imshow(I3);
 
 end
 
