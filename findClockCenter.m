@@ -48,7 +48,8 @@ function ISkew = findClockCenter(IClock,twelve,three,six,nine)
 
     tform = maketform('affine', [C d; 0 0 1]');
     Im2 = imtransform(paddedImage, tform);
-    imshow(Im2)
+    imshow(Im2);
+    
     
     ISkew = Im2;
 end
