@@ -1,0 +1,10 @@
+clc;clear;close all;
+
+clock1 = imread("images/clock1.jpg");
+[twelve,six,nine,three] = findAxes(clock1);
+inputPoints = [twelve,three,six,nine];
+inputX = inputPoints(1,:);
+report = findClockCenter(clock1,twelve,three,six,nine);
+
+
+
