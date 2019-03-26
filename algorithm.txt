@@ -18,3 +18,11 @@ Hough Transform-Based Pointer Detection
 	inputs: IEdge, 
 	outputs: The answer to everything apparently
 The Pointer Gauge Indicating Value Recognition
+
+
+Questions for brother Dallah:
+1. Did the due date change?
+2. Can we use hough(), houghpeaks(), houghlines()?
+3. Do we have to be able to track a video of the clock from different angles, distances, etc. or
+can we assume the camera will be steady?
+4. Do we need to process the times in real time (reading time takes less than one second).
