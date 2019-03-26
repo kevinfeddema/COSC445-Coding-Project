@@ -28,12 +28,30 @@ function ISkew = findClockCenter(IClock,twelve,three,six,nine)
 %     report.ABCDE=[A, B, C, D, E]/F;
 %     report.AxesDiams=sort(AxesDiams(:)).';
 %     report.theta=theta;
+    paddedImage = padarray(IClock,[50 50],0,'both');
+    bwImage = rgb2gray(paddedImage);
+    bwImage = imbinarize(bwImage);
+    
+    stats = regionprops(bwImage,'MajorAxisLength','MinorAxisLength','Centroid','Orientation');
     
     
+    alpha = pi/180 * stats(1).Orientation;
+    Q = [cos(alpha), -sin(alpha); sin(alpha), cos(alpha)];
+    x0 = stats(1).Centroid.';
+    a = stats(1).MajorAxisLength;
+    b = stats(1).MinorAxisLength;
+    S = diag([1, a/b]);
+    C = Q*S*Q';
+    d = (eye(2) - C)*x0;
 
     tform = maketform('affine', [C d; 0 0 1]');
-    Im2 = imtransform(IClock, tform);
+    Im2 = imtransform(paddedImage, tform);
+    
+    bwCircle = rgb2gray(paddedImage);
+    bwImage = imbinarize(bwImage);
+    
     imshow(Im2);
+    plot(x0(1)+100, x0(2)+100, 'r+', 'MarkerSize', 10);
     
     ISkew = Im2;
 end
