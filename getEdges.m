@@ -1,13 +1,9 @@
-IClock = imread('images/clock1.jpg');
-IEdge = clockCanny(IClock, 0.08, 0.2, 1);
-figure, imshow(IEdge);
-title("Clock Edges");
+function IEdge = getEdges(ISkew, low_thresh, high_thresh, sigma)
 
-function IEdge = clockCanny(ISkew, low_thresh, high_thresh, sigma)
-
+    %best values seem to be low_thresh = 0.08, high_thresh = 0.2, sigma = 1
+    
     %STEP 1: Smooth image using gaussian filter
-    ISkew = rgb2gray(ISkew);
-    I_smooth = imgaussfilt(ISkew, sigma);
+    ISmooth = imgaussfilt(ISkew, sigma);
 
     %STEP 2: Compute the gradient magnitude and angle
 
@@ -16,8 +12,8 @@ function IEdge = clockCanny(ISkew, low_thresh, high_thresh, sigma)
     wy = [1, 2, 1; 0, 0, 0; -1, -2, -1];
 
     %apply filters
-    filter_x = conv2(I_smooth, wx, 'same');
-    filter_y = conv2(I_smooth, wy, 'same');
+    filter_x = conv2(ISmooth, wx, 'same');
+    filter_y = conv2(ISmooth, wy, 'same');
 
     %calculate gradient magnitude
     magnitude = sqrt((filter_x.^2) + (filter_y.^2));
@@ -26,8 +22,8 @@ function IEdge = clockCanny(ISkew, low_thresh, high_thresh, sigma)
     direction = atan2(filter_y, filter_x);
     direction = direction*180/pi;
 
-    s1 = size(I_smooth, 1);
-    s2 = size(I_smooth, 2);
+    s1 = size(ISmooth, 1);
+    s2 = size(ISmooth, 2);
 
     %make all directions positive
     for i = 1:s1
