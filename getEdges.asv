@@ -1,7 +1,12 @@
-function IEdge = getEdges(ISkew, low_thresh, high_thresh, sigma)
+IClock = imread('images/clock1.jpg');
+IEdge = clockCanny(IClock, 0.08, 0.2, 1);
+figure, imshow(IEdge);
+title("Clock Edges");
+
+function IEdge = clockCanny(ISkew, low_thresh, high_thresh, sigma)
 
     %best values seem to be low_thresh = 0.08, high_thresh = 0.2, sigma = 1
-
+    ISkew = rgb2gray(ISkew);
     %STEP 1: Smooth image using gaussian filter
     ISmooth = imgaussfilt(ISkew, sigma);
 
@@ -51,42 +56,42 @@ function IEdge = getEdges(ISkew, low_thresh, high_thresh, sigma)
         end
     end
 
-    E = zeros(M, N);
+    BW = zeros(M, N);
 
     %STEP 3: Apply Nonmaxima Suppression
     for i = 2:M-1
         for j = 2:N-1
             switch(direction4(i,j))
-                case 0
-                    E(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i,j+1), magnitude(i,j-1)]));
-                case 45
-                    E(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i+1,j-1), magnitude(i-1,j+1)]));
-                case 90
-                    E(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i+1,j), magnitude(i-1,j)]));
-                case 135
-                    E(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i+1,j+1), magnitude(i-1,j-1)]));
+            case(0
+                BW(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i,j+1), magnitude(i,j-1)]));
+            elseif (direction4(i,j) == 45)
+                BW(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i+1,j-1), magnitude(i-1,j+1)]));
+            elseif (direction4(i,j) == 90)
+                BW(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i+1,j), magnitude(i-1,j)]));
+            elseif (direction4(i,j) == 135)
+                BW(i,j) = (magnitude(i,j) == max([magnitude(i,j), magnitude(i+1,j+1), magnitude(i-1,j-1)]));
             end
         end
     end
 
-    E = E.*magnitude;
+    BW = BW.*magnitude;
 
     %STEP 4: Double Thresholding and Connectivity Analysis using 8-connectivity
-    edges = zeros(M, N);
-    low_thresh = low_thresh * max(max(E));
-    high_thresh = high_thresh * max(max(E));
+    thresh = zeros(M, N);
+    low_thresh = low_thresh * max(max(BW));
+    high_thresh = high_thresh * max(max(BW));
 
     for i = 1:M
         for j = 1:N
-            if (E(i, j) < low_thresh)
-                edges(i, j) = 0;
-            elseif (E(i, j) > high_thresh)
-                edges(i, j) = 1;
-            elseif (E(i+1,j) > high_thresh || E(i-1,j) > high_thresh || E(i,j+1) > high_thresh || E(i,j-1) > high_thresh || E(i-1, j-1) > high_thresh || E(i-1, j+1) > high_thresh || E(i+1, j+1) > high_thresh || E(i+1, j-1) > high_thresh)
-                edges(i,j) = 1;
+            if (BW(i, j) < low_thresh)
+                thresh(i, j) = 0;
+            elseif (BW(i, j) > high_thresh)
+                thresh(i, j) = 1;
+            elseif (BW(i+1,j) > high_thresh || BW(i-1,j) > high_thresh || BW(i,j+1) > high_thresh || BW(i,j-1) > high_thresh || BW(i-1, j-1) > high_thresh || BW(i-1, j+1) > high_thresh || BW(i+1, j+1) > high_thresh || BW(i+1, j-1) > high_thresh)
+                thresh(i,j) = 1;
             end
         end
     end
 
-    IEdge = uint8(edges.*255);
+    IEdge = uint8(thresh.*255);
 end
