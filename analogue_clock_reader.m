@@ -31,15 +31,9 @@ plot(p6(1), p6(2), 'r+', 'MarkerSize', 10);
 plot(p9(1), p9(2), 'r+', 'MarkerSize', 10);
 plot(p3(1), p3(2), 'r+', 'MarkerSize', 10);
 
-%I12 = clock1(rect12(1):rect12(3), rect12(2):rect12(4));
 I12 = clock1(uint8(rect12(2)):uint8(rect12(2)) + uint8(rect12(4)),uint8(rect12(1)):uint8(rect12(1)) + uint8(rect12(3)));
 figure, imshow(I12);
 
-%clock1 = rgb2gray(clock1);
-%figure, imshow(clock1);
-%E = edge(clock1, "Canny");
-%figure, imshow(E);
 
-%[H,T,R] = hough(E);
 end
 

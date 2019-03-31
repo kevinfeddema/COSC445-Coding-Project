@@ -1,8 +1,5 @@
 function [p12, p6, p9, p3, I12, I6, I9, I3] = findAxes(clock1)
 
-if(size(size(clock1(3)) > 1))
-clock1 = rgb2gray(clock1);
-end
 imshow(clock1);
 
 rect12 = getrect();

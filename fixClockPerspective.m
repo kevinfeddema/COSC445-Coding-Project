@@ -11,7 +11,7 @@ function ISkew = fixClockPerspective(IClock)
 %   ISKEW - an rgb image of the input image after a perspective transform.
 %           Clock shape approximates a circle.
 
-    bwImage = rgb2gray(IClock);
+    bwImage = IClock;
     bwImage = imbinarize(bwImage);
     
     stats = regionprops(bwImage,'MajorAxisLength','MinorAxisLength','Centroid','Orientation');
