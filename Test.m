@@ -56,9 +56,13 @@ for k = 1:length(lines)
    b = twelve;
    x = [xy(1,1), xy(1,2)];
    y = [xy(2,1) , xy(2,2)];
+   handslope = (y(2) - y(1)) / (x(2) - x(1));
+   mainslope = (b(2) - b(1)) / (a(2) - a(1));
+   sprintf("slope: %f", handslope)
    
-   diff = (atan((y(2)-y(1))/(x(2)-x(1))) - atan((b(2)-b(1))/(a(2)-a(1)))) * 180/pi;
-   fprintf("%f", diff)
+   
+   %diff = (atan((y(2)-y(1))/(x(2)-x(1))) - atan((b(2)-b(1))/(a(2)-a(1)))) * 180/pi;
+   %fprintf("%f", diff)
     
    
    % Determine the endpoints of the longest line segment
