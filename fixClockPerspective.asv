@@ -14,6 +14,7 @@ function ISkew = fixClockPerspective(IClock)
     bwImage = rgb2gray(IClock);
     bwImage = imbinarize(bwImage);
     bwImage = imfill( bwImage ,'holes');
+    im
  
     label = logical(bwImage);
     stats = regionprops(label,'MajorAxisLength','MinorAxisLength','Centroid','Orientation');
