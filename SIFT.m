@@ -1,7 +1,6 @@
 function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
 
     %I = imresize(I,[600,1000]);
-    IClock = rgb2gray(IClock);
     clock = IClock;
     IClock = single(IClock);
 %     twelve = imread('images/Clock219_12.jpg');

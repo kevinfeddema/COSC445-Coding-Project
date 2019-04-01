@@ -1,7 +1,7 @@
 clc;clear;close all;
     
 %load the video
-video = VideoReader('videos/Clock219_Test.mp4');
+video = VideoReader('videos/Clock219.mp4');
 
 %determine height and width of frames
 vidHeight = video.Height;
