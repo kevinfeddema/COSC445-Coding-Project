@@ -41,37 +41,90 @@ oldmax = -1;
 %    
 %end
 
+[times] = [];
 
 for k = 1:length(lines)
    if(k == 3 || k == 6 || k == 7)
    xy = [lines(k).point1; lines(k).point2];
-   plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
+   %plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
 
    % Plot beginnings and ends of lines
-   plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
-   plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
+   %plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
+   %plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
    
-   %thetas = lines(k).theta;
-   a = [centerX, centerY];
-   b = twelve;
+   cent = [centerX, centerY];
    x = [xy(1,1), xy(1,2)];
-   y = [xy(2,1) , xy(2,2)];
-   handslope = (y(2) - y(1)) / (x(2) - x(1));
-   mainslope = (b(2) - b(1)) / (a(2) - a(1));
-   sprintf("slope: %f", handslope)
+   y = [xy(2,1), xy(2,2)];
    
-   
-   %diff = (atan((y(2)-y(1))/(x(2)-x(1))) - atan((b(2)-b(1))/(a(2)-a(1)))) * 180/pi;
-   %fprintf("%f", diff)
-    
-   
-   % Determine the endpoints of the longest line segment
-   len = norm(lines(k).point1 - lines(k).point2);
-   if ( len > max_len)
-      max_len = len;
-      xy_long = xy;
+   point = max(pdist([x;cent], 'euclidean'),pdist([y;cent], 'euclidean'));
+   if(point == pdist([x;cent], 'euclidean'))
+       point = x;
+   else
+       point = y;
    end
+   
+   %plot(point(1),point(2),'x','LineWidth',2,'Color','green');
+   
+   
+   if(point(1) >= cent(1) && point(2) <= cent(2))
+       
+       plot(point(1),point(2),'x','LineWidth',2,'Color','red');
+       
+       calcedx = point(1) - cent(1);
+       calcedy = cent(2) - point(2);
+       angle = atan(calcedx / calcedy) * (180/ pi);
+       time = (angle/360) * 60;
+       
+       times = [times, time];
+       
+       
+   elseif(point(1) >= cent(1) && point(2) >= cent(2))
+       
+       plot(point(1),point(2),'x','LineWidth',2,'Color','green');
+       
+       opp = point(2) - cent(2);
+       adj = point(1) - cent(1);
+       angle = atan(opp / adj) * (180/ pi);
+       time = (angle/360) * 60;
+       
+       times = [times, time + 15];
+       
+   elseif(point(1) <= cent(1) && point(2) >= cent(2))
+       
+       plot(point(1),point(2),'x','LineWidth',2,'Color','blue');
+       
+       opp = cent(1) - point(1);
+       adj = point(2) - cent(2);
+       angle = atan(opp / adj) * (180/ pi);
+       time = (angle/360) * 60;
+       
+       times = [times, time + 30];
+       
+       
+   else
+       
+       plot(point(1),point(2),'x','LineWidth',2,'Color','yellow');
+       
+       opp = cent(2) - point(2);
+       adj = cent(1) - point(1);
+       angle = atan(opp / adj) * (180/ pi);
+       time = (angle/360) * 60;
+       
+       times = [times, time + 45];
+       
+       
+       
    end
+         
+
+   end
+   
+   
 end
+
+
+fprintf("The time is: %.0f:%.0f:%.0f", times(3)/5, times(2), times(1));
+
+
 
 

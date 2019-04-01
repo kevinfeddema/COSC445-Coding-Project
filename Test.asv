@@ -41,32 +41,26 @@ oldmax = -1;
 %    
 %end
 
+[times] = [0, 0, 0];
+for k = 1:length(lines)
+   if(k == 3 || k == 6 || k == 7)
+   xy = [lines(k).point1; lines(k).point2];
+   %plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
 
-%for k = 1:length(lines)
-%   if(thetas ~= lines(k).theta)
-%   xy = [lines(k).point1; lines(k).point2];
-%   plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');%
+   % Plot beginnings and ends of lines
+   plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
+   plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
+   
+   cent = [centerX, centerY];
+   x = [xy(1,1), xy(1,2)];
+   y = [xy(2,1) , xy(2,2)];
+   
+   point = ma
+   
+   
+   
 
-%   % Plot beginnings and ends of lines
- %  plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
-  % plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
-   
-   %    thetas = lines(k).theta;
-   %a = [centerX, centerY];
-   %b = twelve;
-   %x = [xy(1,1), xy(1,2)];
-   %y = [xy(2,1) , xy(2,2)];
-   
-  % diff = (atan((y(2)-y(1))/(x(2)-x(1))) - atan((b(2)-b(1))/(a(2)-a(1)))) * 180/pi;
-  % fprintf("%f", diff)
-   %end 
-   
-   % Determine the endpoints of the longest line segment
-   %len = norm(lines(k).point1 - lines(k).point2);
-   %if ( len > max_len)
-    %  max_len = len;
-    %  xy_long = xy;
-   %end
-%end
+   end
+end
 
 
