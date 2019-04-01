@@ -1,5 +1,6 @@
 clc;clear;close all;
 
+<<<<<<< HEAD
 clock1 = imread("images/clock1.jpg");
 if(size(size(clock1(3)) > 1))
 clock1 = rgb2gray(clock1);
@@ -63,4 +64,24 @@ for k = 1:length(lines)
    end
 end
 
+=======
+clock1 = imread("images/Clock219_angled_b.jpg");
+figure(), imshow(clock1);
+clock1 = fixClockPerspective(clock1);
+figure(), imshow(clock1);
+%[twelve,six,nine,three, I12, I6, I9, I3] = SIFT(clock1);
+%[centerX,centerY] = findClockCenter([twelve six],[nine three],[I12  I6],[I9   I3]);
+
+% low_thresh = 0.08; 
+% high_thresh = 0.2; 
+% sigma = 1;
+% 
+% %edges = getEdges(clock1,low_thresh,high_thresh,sigma);
+% edges = rgb2gray(clock1);
+% edges = edge(edges, 'Canny');
+% getHoughLines(edges);
+
+%figure(),imshow(clock1);
+%plot(centerX,centerY,'r+','MarkerSize',6);
+>>>>>>> c710073161e3e4167260003a57e058515f01cf52
 

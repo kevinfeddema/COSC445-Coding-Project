@@ -13,8 +13,10 @@ function ISkew = fixClockPerspective(IClock)
 
     bwImage = IClock;
     bwImage = imbinarize(bwImage);
-    
-    stats = regionprops(bwImage,'MajorAxisLength','MinorAxisLength','Centroid','Orientation');
+    bwImage = imfill( bwImage ,'holes');
+ 
+    label = logical(bwImage);
+    stats = regionprops(label,'MajorAxisLength','MinorAxisLength','Centroid','Orientation');
     
     alpha = pi/180 * stats(1).Orientation;
     Q = [cos(alpha), -sin(alpha); sin(alpha), cos(alpha)];
