@@ -18,7 +18,8 @@ E = getEdges(Inext, 0.08, 0.2, 1);
 lines = getHoughLines(E);
 [times] = [];
 
-cent = [centerX, centerY];
+%cent = [centerX, centerY];
+cent = [532, 951];
 longLines = longestEdge(lines,cent);
 
 for k = 1:length(longLines)
@@ -26,11 +27,6 @@ for k = 1:length(longLines)
 
    
    point = longLines(k, :);
-   if(point == pdist([x;cent], 'euclidean'))
-       point = x;
-   else
-       point = y;
-   end
    
    if(point(1) >= cent(1) && point(2) <= cent(2))
        
