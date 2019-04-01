@@ -18,15 +18,14 @@ E = getEdges(Inext, 0.08, 0.2, 1);
 lines = getHoughLines(E);
 [times] = [];
 
-for k = 1:length(lines)
-   if(k == 3 || k == 6 || k == 7)
-   xy = [lines(k).point1; lines(k).point2];
+cent = [centerX, centerY];
+longLines = longestEdge(lines,cent);
+
+for k = 1:length(longLines)
+   if(true)
+
    
-   cent = [centerX, centerY];
-   x = [xy(1,1), xy(1,2)];
-   y = [xy(2,1), xy(2,2)];
-   
-   point = max(pdist([x;cent], 'euclidean'),pdist([y;cent], 'euclidean'));
+   point = longLines(k, :);
    if(point == pdist([x;cent], 'euclidean'))
        point = x;
    else

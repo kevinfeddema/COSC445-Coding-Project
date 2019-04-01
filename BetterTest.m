@@ -141,7 +141,8 @@ for k = 1:length(lines)
    
 end
 
-
+figure, imshow(clock1);
+title(sprintf("The time is: %.0f:%.0f:%.0f", times(3)/5, times(2), times(1)));
 fprintf("The time is: %.0f:%.0f:%.0f", times(3)/5, times(2), times(1));
 
 

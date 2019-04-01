@@ -5,16 +5,16 @@ function  results = longestEdge(lines,cent)
     theta = -200;
     index = 1;
     found = 1;
-    results = [0,0;0,0;0,0;];
+    results = [];
     
     for k = 1:length(lines)
         if rho ~= lines(k).rho || theta ~= lines(k).theta
             if maxVal ~= 0
                 point = max(pdist([lines(index).point1;cent], 'euclidean'),pdist([lines(index).point2;cent], 'euclidean'));
                 if(point == pdist([lines(index).point1;cent], 'euclidean'))
-                    results(found, :) = lines(index).point1;
+                    results(found) = lines(index).point1;
                 else
-                    results(found, :) = lines(index).point2;
+                    results(found) = lines(index).point2;
                 end
                 found = found + 1;
             end
@@ -33,9 +33,9 @@ function  results = longestEdge(lines,cent)
                 disp([index])
                 point = max(pdist([lines(index).point1;cent], 'euclidean'), pdist([lines(index).point2;cent], 'euclidean'));
                 if(point == pdist([lines(index).point1;cent], 'euclidean'))
-                    results(found, :) = lines(index).point1;
+                    results = [results, point];
                 else
-                    results(found, :) = lines(index).point2;
+                    results = [results, poin];
                 end
             end
         end

@@ -30,8 +30,10 @@ function [I12, I6, I9, I3] = firstFrame(img)
     cent = [centerX, centerY];
     longLines = longestEdge(lines,cent);
     
+    
+    
     for k = 1:length(longLines)
-       point = longLines(k);
+       point = longLines(k, :);
        if(point(1) >= cent(1) && point(2) <= cent(2))
 
            plot(point(1),point(2),'x','LineWidth',2,'Color','red');

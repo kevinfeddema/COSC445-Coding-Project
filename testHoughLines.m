@@ -6,7 +6,7 @@ E = rgb2gray(E);
 %E = imopen(E, strel('disk', 5));
 %figure,imshow(E);
 E = getEdges(E, 0.08, 0.2, 1);
-imshow(E);
+figure, imshow(E);
 
 figure, imshow(E);
 %getHoughLines(E);
