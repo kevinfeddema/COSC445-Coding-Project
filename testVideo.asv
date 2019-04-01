@@ -1,0 +1,43 @@
+clc;clear;close all;
+
+low_thresh = 0.08; 
+high_thresh = 0.2; 
+sigma = 1;
+    
+%load the video
+video = VideoReader('videos/rotatedClock.mp4');
+
+%determine height and width of frames
+vidHeight = video.Height;
+vidWidth = video.Width;
+
+%create a video structure array
+s = struct('cdata',zeros(vidHeight,vidWidth,3,'uint8'),'colormap',[]);
+
+%to read the video during a specific time interval use:
+%video.CurrentTime = 1; (start 1 second from the beginning of video)
+%while video.CurrentTime <= 2 (run from 1 to 2 seconds)
+%   readFrame(video)
+%end
+
+%read each frame into our array after running our algorithm
+k = 1;
+cmap = gray(256);
+while hasFrame(video)
+    frame = readFrame(video);
+    %our algorithm goes here to edit each frame to indicate time the time
+    %before storin
+    s(k).cdata = frame;
+    k = k + 1;
+end
+
+%resize default figure and axes so they match the video width and height 
+set(gcf,'position',[150 150 video.Width video.Height]);
+set(gca,'units','pixels');
+set(gca,'position',[0 0 video.Width video.Height]);
+
+%play the video using the original framerate
+movie(s,1,video.FrameRate);
+
+%close the video
+close
