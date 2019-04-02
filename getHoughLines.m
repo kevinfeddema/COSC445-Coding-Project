@@ -5,7 +5,7 @@ function [handLines, endPoints] = getHoughLines(edges)
 
 [H, T, R] = hough(edges);
 
-imshow(H,[],'XData',T,'YData',R, 'InitialMagnification','fit');
+%imshow(H,[],'XData',T,'YData',R, 'InitialMagnification','fit');
 xlabel('\theta'), ylabel('\rho');
 axis on, axis normal, hold on;
 
@@ -15,7 +15,7 @@ x = T(P(:,2));
 y = R(P(:,1));
 plot(x,y,'s','color','white');
 
-lines = houghlines(edges,T,R,P,'FillGap',5,'MinLength',7);
+lines = houghlines(edges,T,R,P,'FillGap',40,'MinLength',7);
 %figure, imshow(edges), hold on
 %max_len = 0;
 %for k = 1:length(lines)

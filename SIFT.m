@@ -67,7 +67,7 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     %     text(x,y,sprintf('%d',i), 'Color', 'g'); 
     % end
 
-    figure, imshow(clock); hold on;
+    %figure, imshow(clock); hold on;
     x12 = 0;
     y12 = 0;
     n = 0;
@@ -88,17 +88,17 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     end
     x12 = x12/n;
     y12 = y12/n;
-    plot(x12,y12,'r+','MarkerSize',6);
+    %plot(x12,y12,'r+','MarkerSize',6);
 
     x4  =  0;
     y4  = 0;
     n  = 0;
     for i = 1 : size(matches4,2)
         err = 0;
-        if pdist([f4match(1,i),f4match(2,i);x12,y12]) > (size(IClock,2) * .25)
+        if pdist([f4match(1,i),f4match(2,i);x12,y12]) > (size(IClock,2) * .1)
             for j = 1 : size(matches4,2)
                 dist =  [f4match(1,i),f4match(2,i);f4match(1,j),f4match(2,j)];
-                if  pdist(dist,'euclidean') < 100
+                if  pdist(dist,'euclidean') < 150
                     err = err + 1;
                 end
             end
@@ -111,7 +111,7 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     end
     x4 = x4/n;
     y4 = y4/n;
-    plot(x4,y4,'r+','MarkerSize',6);
+    %plot(x4,y4,'r+','MarkerSize',6);
 
     x10 =0;
     y10 = 0;
@@ -134,17 +134,17 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     end
     x10 = x10/n;
     y10 = y10/n;
-    plot(x10,y10,'r+','MarkerSize',6);
+    %plot(x10,y10,'r+','MarkerSize',6);
 
     x6 = 0;
     y6 = 0;
     n = 0;
     for i = 1 : size(matches6,2)
         err = 0;
-        if pdist([f6match(1,i),f6match(2,i);x12,y12]) > (size(IClock,1) * .6)
+        if pdist([f6match(1,i),f6match(2,i);x12,y12]) > (size(IClock,1) * .3)
             for j = 1 : size(matches6,2)
                 dist = [f6match(1,i),f6match(2,i);f6match(1,j),f6match(2,j)];
-                if  pdist(dist,'euclidean') < 200
+                if  pdist(dist,'euclidean') < 150
                     err = err + 1;
                 end
             end
@@ -157,6 +157,6 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     end
     x6 = x6/n;
     y6 = y6/n;
-    plot(x6,y6,'r+','MarkerSize',6);
+    %plot(x6,y6,'r+','MarkerSize',6);
 
 end

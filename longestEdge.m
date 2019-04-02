@@ -30,7 +30,7 @@ function  results = longestEdge(lines,cent)
             index = k;
             end
             if k == length(lines)
-                disp([index])
+                %disp([index])
                 point = max(pdist([lines(index).point1;cent], 'euclidean'), pdist([lines(index).point2;cent], 'euclidean'));
                 if(point == pdist([lines(index).point1;cent], 'euclidean'))
                     results(found, :) = lines(index).point1;

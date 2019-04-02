@@ -1,4 +1,4 @@
-function [I12, I6, I9, I3] = firstFrame(img)
+function [I12, I6, I9, I3, cent] = firstFrame(img)
 
     clock1 = img;
     if(size(size(clock1(3)) > 1))
