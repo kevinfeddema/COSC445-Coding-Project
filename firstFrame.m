@@ -85,6 +85,10 @@ function [I12, I6, I9, I3, cent] = firstFrame(img)
        
     end
 
-    fprintf("The time is: %.0f:%.0f:%.0f", times(3)/5, times(2), times(1));
+    
+    imshow(img);
+    hold on;
+    %plot(cent(1),cent(2),'x','LineWidth',2,'Color','blue');
+    title(sprintf("The time is: %.0f:%.0f:%.0f", times(3)/5, times(2), times(1)));
 
 end

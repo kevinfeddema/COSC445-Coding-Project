@@ -1,24 +1,18 @@
 function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
 
-    %I = imresize(I,[600,1000]);
     clock = IClock;
     IClock = single(IClock);
-%     twelve = imread('images/Clock219_12.jpg');
-%     nine = imread('images/Clock219_10.jpg');
-%     three  = imread('images/Clock219_4.jpg');
-%     six = imread('images/Clock219_6.jpg');
-
-%     twelve  =  rgb2gray(twelve);
-%     nine = rgb2gray(nine);
-%     three = rgb2gray(three);
-%     six =  rgb2gray(six);
-
+    
+    blobs = bwlabel(clock);
+    props = regionprops(blobs, 'all');
+    areas = cat(2, props(:).Area);
+    [value index] = max(areas); 
+    clockSize = props(index).MajorAxisLength;
+    
     twelve = single(twelve);
     ten = single(ten);
     four = single(four);
     six = single(six);
-
-%     imshow(IClock,[]);
 
     peak_thresh = 5;
     edge_thresh = 15;
@@ -95,7 +89,7 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     n  = 0;
     for i = 1 : size(matches4,2)
         err = 0;
-        if pdist([f4match(1,i),f4match(2,i);x12,y12]) > (size(IClock,2) * .1)
+        if pdist([f4match(1,i),f4match(2,i);x12,y12]) > clockSize * .25
             for j = 1 : size(matches4,2)
                 dist =  [f4match(1,i),f4match(2,i);f4match(1,j),f4match(2,j)];
                 if  pdist(dist,'euclidean') < 150
@@ -118,7 +112,7 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     n =  0;
     for i = 1 : size(matches10,2)
         err = 0;
-        if pdist([f10match(1,i),f10match(2,i);x4,y4]) > (size(IClock,2) * .25)
+        if pdist([f10match(1,i),f10match(2,i);x4,y4]) > clockSize * .25
             for j = 1 : size(matches10,2)
                 dist = [f10match(1,i),f10match(2,i);f10match(1,j),f10match(2,j)];
                 if  pdist(dist,'euclidean') < 200
@@ -141,7 +135,7 @@ function [x12, y12,x6, y6,x10, y10,x4, y4]= SIFT(IClock, twelve,six,ten,four)
     n = 0;
     for i = 1 : size(matches6,2)
         err = 0;
-        if pdist([f6match(1,i),f6match(2,i);x12,y12]) > (size(IClock,1) * .3)
+        if pdist([f6match(1,i),f6match(2,i);x12,y12]) > clockSize * .25
             for j = 1 : size(matches6,2)
                 dist = [f6match(1,i),f6match(2,i);f6match(1,j),f6match(2,j)];
                 if  pdist(dist,'euclidean') < 150
